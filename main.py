@@ -7,7 +7,6 @@ image = 'blank_states_img.gif'
 screen.addshape(image)
 turtle.shape(image)
 
-
 # def get_mouse_click_coor(x, y):            # Getting coordinates when click upon screen, also keep screen open
 #     print(x, y)
 #
@@ -15,13 +14,15 @@ turtle.shape(image)
 # turtle.mainloop()
 
 answer_state = screen.textinput(title='Guess the State', prompt='What\'s another state\'s name?').title()
-data =pandas.read_csv('50_states.csv')
-states = data.state
+data = pandas.read_csv('50_states.csv')
+states = data.state.tolist()
 
-for state in states:
-    if state in answer_state:
-        draw_state = turtle.Turtle()
-        draw_state.hideturtle()
-        draw_state.penup()
-        raw =data[data.state == state]
-        draw_state.goto(raw.x, raw.y)
+if answer_state in states:
+    t = turtle.Turtle()
+    t.hideturtle()
+    t.penup()
+    raw = data[data.state == answer_state]
+    t.goto(raw.x.item(), raw.y.item())
+    t.write(answer_state)
+
+screen.exitonclick()
