@@ -32,4 +32,7 @@ while len(guessed_states) < 50:
         t.goto(raw.x.item(), raw.y.item())
         t.write(answer_state)
 
-screen.exitonclick()
+not_guessed_states = list(set(states) - set(guessed_states))
+
+not_guessed = pandas.DataFrame(not_guessed_states)
+not_guessed.to_csv('states_to_learn.csv')
